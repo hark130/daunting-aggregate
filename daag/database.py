@@ -1,4 +1,4 @@
-"""Read a DAAG database file."""
+"""Defines functionality to parse a DAAG database file."""
 # Standard
 from pathlib import Path
 from typing import List, Tuple
@@ -14,7 +14,7 @@ def parse_database(dbase: Path) -> List[Node]:
     Does not validate the validity of dbase but validates the content.
 
     Args:
-        dbase: Path object of the DAAG database to parse
+        dbase: Path object of the DAAG database to parse.
 
     Returns:
         List of Node namedtuples read from dbase on success.
@@ -48,6 +48,9 @@ def parse_database(dbase: Path) -> List[Node]:
 
 def _parse_list(line: str) -> Tuple[str, str]:
     """Parse a potential list entry from the front of a line.
+
+    Args:
+        line: One line parsed from a DAAG database.
 
     Returns:
         A tuple containing the potential list entry and the remainder.

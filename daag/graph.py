@@ -45,6 +45,13 @@ def _add_edge(graph: graphviz.Digraph, edges: tuple) -> graphviz.Digraph:
     """Adds edges to graph.
 
     WARNING: Does not validate input!
+
+    Args:
+        graph: Directed graph to update.
+        edges: Leading and trailing node names.
+
+    Returns:
+        graph, post-modification, on success.
     """
     # LOCAL VARIABLES
     temp_lead_edge = edges[0]   # We might need to modify the leading edge
@@ -58,7 +65,17 @@ def _add_edge(graph: graphviz.Digraph, edges: tuple) -> graphviz.Digraph:
 
 
 def _add_edges(graph: graphviz.Digraph, node_list: List[Node]) -> graphviz.Digraph:
-    """Add edges for each Node in node_list."""
+    """Add edges for each Node in node_list.
+
+    WARNING: Does not validate input!
+
+    Args:
+        graph: Directed graph to update.
+        node_list: List of Node namedtuples to create edges from.
+
+    Returns:
+        graph, post-modification, on success.
+    """
     # LOCAL VARIABLES
     temp_str = ''  # Temp string
 
@@ -94,9 +111,14 @@ def _add_edges(graph: graphviz.Digraph, node_list: List[Node]) -> graphviz.Digra
 def _add_node(graph: graphviz.Digraph, name: str, label: str = '') -> graphviz.Digraph:
     """Add a node to graph with a given name and label.
 
+    WARNING: Does not validate input!
+
     Args:
         name: Name of the node
         label: Optional; Defaults to name
+
+    Returns:
+        graph, post-modification, on success.
     """
     # LOCAL VARIABLES
     temp_label = name  # Default behavior for node label
@@ -111,7 +133,17 @@ def _add_node(graph: graphviz.Digraph, name: str, label: str = '') -> graphviz.D
 
 
 def _add_nodes(graph: graphviz.Digraph, node_list: List[Node]) -> graphviz.Digraph:
-    """Add a list of nodes to graph with Title/Title+Comp+Type as name/label."""
+    """Add a list of nodes to graph with Title/Title+Comp+Type as name/label.
+
+    WARNING: Does not validate input!
+
+    Args:
+        graph: Directed graph to update.
+        node_list: List of Node namedtuples to create nodes from.
+
+    Returns:
+        graph, post-modification, on success.
+    """
     # LOCAL VARIABLES
     local_graph = graph  # I get nervous overwriting argument values
     temp_label = ''      # Dynamically form node labels
@@ -133,7 +165,7 @@ def _add_nodes(graph: graphviz.Digraph, node_list: List[Node]) -> graphviz.Digra
 def _create_graph(name: str, engine: str, graph_fmt: str) -> graphviz.Digraph:
     """Create a Digraph, sans edges, using graphviz.
 
-    Does not validate input.
+    WARNING: Does not validate input!
 
     Args:
         name: Name of the graph, which is also used to prepend the filename.

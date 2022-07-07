@@ -9,11 +9,15 @@ import argparse
 def parse_args() -> Path:
     """Process the command line arguments.
 
-    -h, --help                        show this help message and exit
-    -d DATABASE, --database DATABASE  Filename of the input database
+    usage: DAUNTING AGGREGATE (DAAG) [-h] -d DATABASE
+
+    options:
+      -h, --help            show this help message and exit
+      -d DATABASE, --database DATABASE
+                            Filename of the input database
 
     Returns:
-        Filename of the database file on success.
+        Path object for the database file on success.
 
     Raises:
         FileNotFoundError: --database value not found
