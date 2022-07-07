@@ -22,6 +22,7 @@ def main() -> int:
         # print(f'NODE LIST: {node_list}')  # DEBUGGING
         graph_obj = create_graph(name=db.stem.split('.')[0], node_list=node_list)
         graph_obj.view()
+        # print(f'GRAPH: {graph_obj}')  # DEBUGGING
     except Exception as err:
         print_exception(err)
         retval = 1

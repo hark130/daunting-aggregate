@@ -65,18 +65,22 @@ def _add_edges(graph: graphviz.Digraph, node_list: List[Node]) -> graphviz.Digra
     for node_entry in node_list:
         # Blocked By
         if node_entry.blocked:
-            if node_entry.blocked.startswith(OPEN_LIST_DELIM) and node_entry.blocked.endswith(CLOSE_LIST_DELIM):
-                temp_str = node_entry.blocked[node_entry.blocked.find(OPEN_LIST_DELIM) \
-                           + len(OPEN_LIST_DELIM):node_entry.blocked.find(CLOSE_LIST_DELIM)]
+            if node_entry.blocked.startswith(OPEN_LIST_DELIM) and \
+               node_entry.blocked.endswith(CLOSE_LIST_DELIM):
+                temp_str = node_entry.blocked[node_entry.blocked.find(OPEN_LIST_DELIM)
+                                              + len(OPEN_LIST_DELIM):
+                                              node_entry.blocked.find(CLOSE_LIST_DELIM)]
                 for blocked in temp_str.split(','):
                     graph = _add_edge(graph, tuple((blocked, node_entry.title)))
             else:
                 graph = _add_edge(graph, tuple((node_entry.blocked, node_entry.title)))
         # Blocks
         if node_entry.blocks:
-            if node_entry.blocks.startswith(OPEN_LIST_DELIM) and node_entry.blocks.endswith(CLOSE_LIST_DELIM):
-                temp_str = node_entry.blocks[node_entry.blocks.find(OPEN_LIST_DELIM) \
-                           + len(OPEN_LIST_DELIM):node_entry.blocks.find(CLOSE_LIST_DELIM)]
+            if node_entry.blocks.startswith(OPEN_LIST_DELIM) and \
+               node_entry.blocks.endswith(CLOSE_LIST_DELIM):
+                temp_str = node_entry.blocks[node_entry.blocks.find(OPEN_LIST_DELIM)
+                                             + len(OPEN_LIST_DELIM):
+                                             node_entry.blocks.find(CLOSE_LIST_DELIM)]
                 for blocks in temp_str.split(','):
                     graph = _add_edge(graph, tuple((node_entry.title, blocks)))
             else:

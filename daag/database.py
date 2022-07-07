@@ -15,7 +15,7 @@ def parse_database(db: Path) -> List[Node]:
     temp_node = None  # Temp Node
     temp_title = ''
     temp_comp = ''
-    temp_type = '' 
+    temp_type = ''
     temp_blocked = ''
     temp_blocks = ''
     temp_status = ''
