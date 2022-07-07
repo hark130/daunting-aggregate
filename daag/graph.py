@@ -33,6 +33,7 @@ def create_graph(name: str, node_list: List[Node], engine: str = 'dot',
     graph_obj = _create_graph(name=name, engine=engine, graph_fmt=graph_fmt)
 
     # ADD NODES/EDGES
+    graph_obj = _add_nodes(graph=graph_obj, node_list=node_list)
     graph_obj = _add_edges(graph=graph_obj, node_list=node_list)
 
     # DONE
@@ -83,6 +84,45 @@ def _add_edges(graph: graphviz.Digraph, node_list: List[Node]) -> graphviz.Digra
 
     # DONE
     return graph
+
+
+def _add_node(graph: graphviz.Digraph, name: str, label: str = '') -> graphviz.Digraph:
+    """Add a node to graph with a given name and label.
+
+    Args:
+        name: Name of the node
+        label: Optional; Defaults to name
+    """
+    # LOCAL VARIABLES
+    temp_label = name  # Default behavior for node label
+
+    # ADD NODE
+    if label:
+        temp_label = label
+    graph.node(name, temp_label)
+
+    # DONE
+    return graph
+
+
+def _add_nodes(graph: graphviz.Digraph, node_list: List[Node]) -> graphviz.Digraph:
+    """Add a list of nodes to graph with Title/Title+Comp+Type as name/label."""
+    # LOCAL VARIABLES
+    local_graph = graph  # I get nervous overwriting argument values
+    temp_label = ''      # Dynamically form node labels
+
+    # ADD NODES
+    for node_entry in node_list:
+        if node_entry.component:
+            temp_label = node_entry.title + '\n' + node_entry.component
+        else:
+            temp_label = node_entry.title
+        if node_entry.type:
+            temp_label = temp_label + '\n' + node_entry.type
+        local_graph = _add_node(local_graph, node_entry.title, temp_label)
+
+    # DONE
+    return local_graph
 
 
 def _create_graph(name: str, engine: str, graph_fmt: str) -> graphviz.Digraph:
