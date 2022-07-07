@@ -1,4 +1,8 @@
+"""Defines miscellaneous DAAG functionality."""
+# Standard
 import sys
+# Third Party
+# Local
 
 
 def print_exception(error: Exception) -> str:

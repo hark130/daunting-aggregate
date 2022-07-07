@@ -1,5 +1,9 @@
-from daag.main import main
+"""Defines DAAG package entry point."""
+# Standard
 import sys
+# Third Party
+# Local
+from daag.main import main
 
 
 if __name__ == '__main__':

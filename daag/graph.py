@@ -1,3 +1,4 @@
+"""Defines DAAG's directed graphing functionality."""
 # Standard
 from typing import List
 import os

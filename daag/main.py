@@ -1,3 +1,7 @@
+"""Defines DAAG's main()."""
+# Standard
+# Third Party
+# Local
 from daag.database import parse_database
 from daag.graph import create_graph
 from daag.misc import print_exception
@@ -11,18 +15,19 @@ def main() -> int:
         0 on success, 1 on error/Exception.
     """
     # LOCAL VARIABLES
-    retval = 0      # 0 for success, 1 on error
-    db = None       # Path object for the input database
-    node_list = []  # List of Nodes
+    retval = 0        # 0 for success, 1 on error
+    dbase = None      # Path object for the input database
+    node_list = []    # List of Nodes
     graph_obj = None  # graphviz.dot.Digraph object
 
     try:
-        db = parse_args()
-        node_list = parse_database(db)
+        dbase = parse_args()
+        node_list = parse_database(dbase)
         # print(f'NODE LIST: {node_list}')  # DEBUGGING
-        graph_obj = create_graph(name=db.stem.split('.')[0], node_list=node_list)
+        graph_obj = create_graph(name=dbase.stem.split('.')[0], node_list=node_list)
         graph_obj.view()
         # print(f'GRAPH: {graph_obj}')  # DEBUGGING
+    # pylint: disable=broad-except
     except Exception as err:
         print_exception(err)
         retval = 1

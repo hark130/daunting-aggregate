@@ -1,3 +1,4 @@
+"""Defines DAAG's argument parser."""
 # Standard Imports
 from pathlib import Path
 import argparse
@@ -21,7 +22,7 @@ def parse_args() -> Path:
     """
     # LOCAL VARIABLES
     parsed_args = None  # Parsed args as an argparse.Namespace object
-    db = None           # Path object of the input database file
+    dbase = None        # Path object of the input database file
     # Object for parsing command line input into Python objects
     parser = argparse.ArgumentParser(prog='DAUNTING AGGREGATE (DAAG)')
 
@@ -36,12 +37,12 @@ def parse_args() -> Path:
     # Setup
     if not parsed_args.database:
         raise ValueError('--database entry may not be blank')
-    db = Path(parsed_args.database)  # --database
+    dbase = Path(parsed_args.database)  # --database
     # Validate
-    if not db.exists():
-        raise FileNotFoundError(f'Unable to find {db.absolute()}')
-    if not db.is_file():
-        raise OSError(f'{db.absolute()} is not a file')
+    if not dbase.exists():
+        raise FileNotFoundError(f'Unable to find {dbase.absolute()}')
+    if not dbase.is_file():
+        raise OSError(f'{dbase.absolute()} is not a file')
 
     # DONE
-    return db
+    return dbase
