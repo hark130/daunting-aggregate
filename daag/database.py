@@ -36,15 +36,10 @@ def parse_database(dbase: Path) -> List[Node]:
 
     # PARSE IT
     for line in lines:
-        # print(f'LINE: {line}')  # DEBUGGING
-        # temp_title, temp_comp, temp_type, temp_blocked, temp_blocks, temp_status = line.split(',')
         temp_title, temp_comp, temp_type, line = line.split(',', maxsplit=3)
-        # print(f'TEMP BLOCKS: {temp_blocks}')  # DEBUGGING
-        # print(f'NEW LINE: {line}')  # DEBUGGING
         temp_blocked, line = _parse_list(line)
         temp_blocks, temp_status = _parse_list(line)
         temp_node = Node(temp_title, temp_comp, temp_type, temp_blocked, temp_blocks, temp_status)
-        # print(f'TEMP NODE: {temp_node}')  # DEBUGGING
         node_list.append(temp_node)
 
     # DONE

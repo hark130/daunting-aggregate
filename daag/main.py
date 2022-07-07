@@ -23,10 +23,8 @@ def main() -> int:
     try:
         dbase = parse_args()
         node_list = parse_database(dbase)
-        # print(f'NODE LIST: {node_list}')  # DEBUGGING
         graph_obj = create_graph(name=dbase.stem.split('.')[0], node_list=node_list)
         graph_obj.view()
-        # print(f'GRAPH: {graph_obj}')  # DEBUGGING
     # pylint: disable=broad-except
     except Exception as err:
         print_exception(err)
