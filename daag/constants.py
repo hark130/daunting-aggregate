@@ -12,5 +12,6 @@ from typing import Final
 # Status: current ticket status (e.g., Open, IP, Done)
 Node = namedtuple('Node', ['title', 'component', 'type', 'blocked', 'blocks', 'status'])
 
-OPEN_LIST_DELIM: Final[str] = '['   # Database entry delimiter indicating a list beginning
-CLOSE_LIST_DELIM: Final[str] = ']'  # Database entry delimiter indicating a list ending
+OPEN_LIST_DELIM: Final[str] = '['           # Database entry delimiter indicating a list beginning
+CLOSE_LIST_DELIM: Final[str] = ']'          # Database entry delimiter indicating a list ending
+COLOR_LIST_DELIM: Final[str] = '[COLORS]:'  # Database entry delimiter indicating color scheme
