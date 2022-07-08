@@ -141,7 +141,7 @@ def _parse_node(line: str) -> Node:
     temp_title, temp_comp, temp_type, line = line.split(',', maxsplit=3)
     temp_blocked, line = _parse_list(line)
     temp_blocks, temp_status = _parse_list(line)
-    temp_node = Node(temp_title, temp_comp, temp_type, temp_blocked, temp_blocks, temp_status)
+    node_obj = Node(temp_title, temp_comp, temp_type, temp_blocked, temp_blocks, temp_status)
 
     # DONE
-    return temp_node
+    return node_obj
