@@ -8,13 +8,14 @@ import graphviz
 from daag.constants import CLOSE_LIST_DELIM, Node, OPEN_LIST_DELIM
 
 
-def create_graph(name: str, node_list: List[Node], engine: str = 'dot',
+def create_graph(name: str, node_list: List[Node], color_scheme: dict, engine: str = 'dot',
                  graph_fmt: str = 'png') -> graphviz.Digraph:
     """Create a hospital-based Digraph using graphviz.
 
     Args:
         name: Name of the graph, which is also used to prepend the filename.
         node_list: List of Nodes to add edges.
+        color_scheme: Used to color nodes - status:color
         engine: Optional; Digraph build engine: [dot], neato, sfdp, fdp
         graph_fmt: Optional; File format for Digraph: [png], pdf
 
@@ -34,7 +35,7 @@ def create_graph(name: str, node_list: List[Node], engine: str = 'dot',
     graph_obj = _create_graph(name=name, engine=engine, graph_fmt=graph_fmt)
 
     # ADD NODES/EDGES
-    graph_obj = _add_nodes(graph=graph_obj, node_list=node_list)
+    graph_obj = _add_nodes(graph=graph_obj, node_list=node_list, color_scheme=color_scheme)
     graph_obj = _add_edges(graph=graph_obj, node_list=node_list)
 
     # DONE
@@ -108,7 +109,8 @@ def _add_edges(graph: graphviz.Digraph, node_list: List[Node]) -> graphviz.Digra
     return graph
 
 
-def _add_node(graph: graphviz.Digraph, name: str, label: str = '') -> graphviz.Digraph:
+def _add_node(graph: graphviz.Digraph, name: str, label: str = '',
+              color: str = '') -> graphviz.Digraph:
     """Add a node to graph with a given name and label.
 
     WARNING: Does not validate input!
@@ -116,6 +118,7 @@ def _add_node(graph: graphviz.Digraph, name: str, label: str = '') -> graphviz.D
     Args:
         name: Name of the node
         label: Optional; Defaults to name
+        color: Optional; If defined, passed to graph.node()
 
     Returns:
         graph, post-modification, on success.
@@ -126,20 +129,26 @@ def _add_node(graph: graphviz.Digraph, name: str, label: str = '') -> graphviz.D
     # ADD NODE
     if label:
         temp_label = label
-    graph.node(name, temp_label)
+    if color:
+        graph.node(name, temp_label, style='filled', fillcolor=color)
+    else:
+        graph.node(name, temp_label)
 
     # DONE
     return graph
 
 
-def _add_nodes(graph: graphviz.Digraph, node_list: List[Node]) -> graphviz.Digraph:
+def _add_nodes(graph: graphviz.Digraph, node_list: List[Node],
+               color_scheme: dict) -> graphviz.Digraph:
     """Add a list of nodes to graph with Title/Title+Comp+Type as name/label.
 
+    For a list of supported X11 colors see: https://graphviz.org/doc/info/colors.html#x11
     WARNING: Does not validate input!
 
     Args:
         graph: Directed graph to update.
         node_list: List of Node namedtuples to create nodes from.
+        color_scheme: Used to color nodes - status:color
 
     Returns:
         graph, post-modification, on success.
@@ -147,6 +156,7 @@ def _add_nodes(graph: graphviz.Digraph, node_list: List[Node]) -> graphviz.Digra
     # LOCAL VARIABLES
     local_graph = graph  # I get nervous overwriting argument values
     temp_label = ''      # Dynamically form node labels
+    temp_color = ''      # Node color based on status
 
     # ADD NODES
     for node_entry in node_list:
@@ -156,7 +166,12 @@ def _add_nodes(graph: graphviz.Digraph, node_list: List[Node]) -> graphviz.Digra
             temp_label = node_entry.title
         if node_entry.type:
             temp_label = temp_label + '\n' + node_entry.type
-        local_graph = _add_node(local_graph, node_entry.title, temp_label)
+        try:
+            temp_color = color_scheme[node_entry.status]
+        except KeyError:
+            temp_color = ''  # Use the default color for missing status
+        local_graph = _add_node(graph=local_graph, name=node_entry.title,
+                                label=temp_label, color=temp_color)
 
     # DONE
     return local_graph

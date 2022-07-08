@@ -15,15 +15,17 @@ def main() -> int:
         0 on success, 1 on error/Exception.
     """
     # LOCAL VARIABLES
-    retval = 0        # 0 for success, 1 on error
-    dbase = None      # Path object for the input database
-    node_list = []    # List of Nodes
-    graph_obj = None  # graphviz.dot.Digraph object
+    retval = 0         # 0 for success, 1 on error
+    dbase = None       # Path object for the input database
+    node_list = []     # List of Nodes
+    color_scheme = {}  # status:color
+    graph_obj = None   # graphviz.dot.Digraph object
 
     try:
         dbase = parse_args()
-        node_list = parse_database(dbase)
-        graph_obj = create_graph(name=dbase.stem.split('.')[0], node_list=node_list)
+        node_list, color_scheme = parse_database(dbase)
+        graph_obj = create_graph(name=dbase.stem.split('.')[0], node_list=node_list,
+                                 color_scheme=color_scheme)
         graph_obj.view()
     # pylint: disable=broad-except
     except Exception as err:
