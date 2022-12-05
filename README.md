@@ -2,6 +2,16 @@
 
 Creates a directed graph based on an ingested database of backlog items.  Written in Python 3.10.  Nodes are color-coded by status with the `[COLORS]` scheme.
 
+## Setup
+
+1. Clone the repo
+1. `cd daunting-aggregate`
+1. Install graphviz
+    1. Install graphviz for your OS:
+        - [Linux](https://graphviz.org/download/#linux)
+        - [Windows](https://graphviz.org/download/#windows)
+    2. Install the Python package with `pip install graphviz`
+
 ## Usage
 
 `python -m daag -h`
